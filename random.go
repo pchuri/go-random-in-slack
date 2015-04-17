@@ -27,13 +27,12 @@ func username() string {
 var cfg *Config
 
 func RandomHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "%d", rand.Intn(100))
-
+	username := r.FormValue("user_name")
 	msg := SlackMsg{
 		Channel:   cfg.Channel,
 		Username:  *cfg.Username,
 		Parse:     "full",
-		Text:      fmt.Sprintf("%d", rand.Intn(100)),
+		Text:      fmt.Sprintf("%s's number : %d", username, rand.Intn(100)),
 		IconEmoji: "",
 	}
 
