@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"os"
 )
 
 func RandomHandler(w http.ResponseWriter, r *http.Request) {
@@ -12,5 +13,8 @@ func RandomHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", RandomHandler)
-	http.ListenAndServe(":9090", nil)
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	if err != nil {
+		panic(err)
+	}
 }
