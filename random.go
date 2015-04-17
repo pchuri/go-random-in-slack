@@ -12,7 +12,7 @@ func RandomHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", RandomHandler)
+	http.HandleFunc("/random", RandomHandler)
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		panic(err)
