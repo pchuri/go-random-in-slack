@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"time"
 )
 
 var cfg *Config
@@ -14,7 +15,7 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("user_name")
 	msg := SlackMsg{
 		Channel:   cfg.Channel,
-		Username:  *cfg.Username,
+		Username:  cfg.Username,
 		Parse:     "full",
 		Text:      fmt.Sprintf("%s's number : %d", username, rand.Intn(100)),
 		IconEmoji: "",
@@ -33,6 +34,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not read config: %v", err)
 	}
+
+	rand.Seed(time.Now().UTC().UnixNano())
 
 	http.HandleFunc("/random", randomHandler)
 	err = http.ListenAndServe(":"+os.Getenv("PORT"), nil)
