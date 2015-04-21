@@ -8,7 +8,7 @@ import (
 )
 
 // table scheme
-// CREATE TABLE random_logs(id SERIAL PRIMARY KEY, username VARCHAR(40) NOT NULL, random INTEGER NOT NULL)
+// CREATE TABLE random_logs(id SERIAL PRIMARY KEY, username VARCHAR(40) NOT NULL, randvalue INTEGER NOT NULL)
 // CREATE INDEX random_logs_username_idx ON random_logs(username)
 
 func ConnectDB() (*sql.DB, error) {
@@ -28,4 +28,18 @@ func InsertRandomToDB(db *sql.DB, username string, randValue int) error {
 	_, err = stmt.Exec(username, randValue)
 
 	return err
+}
+
+func SelectAvgRandomFromDB(db *sql.DB, username string) (float32, error) {
+	stmt, err := db.Prepare("SELECT avg(randvalue) from random_logs where username = $1")
+	if err != nil {
+		return 0.0, err
+	}
+
+	row := stmt.QueryRow(username)
+
+	var avgRand float32
+	err = row.Scan(&avgRand)
+
+	return avgRand, err
 }
