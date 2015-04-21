@@ -28,7 +28,7 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Post failed: %v", err)
 	}
 
-	db, err := OpenDB()
+	db, err := ConnectDB()
 	defer db.Close()
 	if err != nil {
 		fmt.Fprintf(w, "Connect Database Failed : %v", err)
