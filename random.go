@@ -48,7 +48,7 @@ func avgRandomHandler(w http.ResponseWriter, r *http.Request) {
 		Channel:   cfg.Channel,
 		Username:  cfg.Username,
 		Parse:     "full",
-		Text:      fmt.Sprintf("%s's avg number : %d", username, avgRand),
+		Text:      fmt.Sprintf("%s's avg number : %f", username, avgRand),
 		IconEmoji: "",
 	}
 
