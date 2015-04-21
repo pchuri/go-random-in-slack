@@ -41,7 +41,7 @@ func avgRandomHandler(w http.ResponseWriter, r *http.Request) {
 
 	avgRand, err := SelectAvgRandomFromDB(db, username)
 	if err != nil {
-		fmt.Fprintln(w, "Select Avg Random : %v", err)
+		fmt.Fprintf(w, "Select Avg Random : %v", err)
 	}
 
 	msg := SlackMsg{
@@ -76,6 +76,7 @@ func main() {
 
 	http.HandleFunc("/random", randomHandler)
 	http.HandleFunc("/avgRandom", avgRandomHandler)
+
 	err = http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		panic(err)
