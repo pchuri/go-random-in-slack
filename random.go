@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"math/rand"
@@ -9,8 +8,6 @@ import (
 	"os"
 	"time"
 )
-
-var db *sql.DB
 
 var cfg *Config
 
@@ -31,10 +28,17 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Post failed: %v", err)
 	}
 
+	db, err := OpenDB()
+	defer db.Close()
+	if err != nil {
+		fmt.Fprintf(w, "Connect Database Failed : %v", err)
+	}
+
 	err = InsertRandomToDB(db, username, randValue)
 	if err != nil {
 		fmt.Fprintf(w, "Insert Failed : %v", err)
 	}
+
 }
 
 func main() {
@@ -43,8 +47,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not read config: %v", err)
 	}
-
-	db = OpenDB()
 
 	rand.Seed(time.Now().UTC().UnixNano())
 
