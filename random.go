@@ -75,7 +75,7 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	http.HandleFunc("/random", randomHandler)
-	http.HandleFunc("/avgRandom", avgRandomHandler)
+	//http.HandleFunc("/avgRandom", avgRandomHandler)
 
 	err = http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
