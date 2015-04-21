@@ -20,7 +20,7 @@ func ConnectDB() (*sql.DB, error) {
 }
 
 func InsertRandomToDB(db *sql.DB, username string, randValue int) error {
-	stmt, err := db.Prepare("INSERT INTO random_logs(randValue) VALUES (?);")
+	stmt, err := db.Prepare("INSERT INTO random_logs (\"username\", \"randValue\") VALUES (?,?)")
 	if err != nil {
 		return err
 	}
