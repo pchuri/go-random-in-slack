@@ -40,6 +40,9 @@ func avgRandomHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("user_name")
 
 	avgRand, err := SelectAvgRandomFromDB(db, username)
+	if err != nil {
+		fmt.Fprintln(w, "Select Avg Random : %v", err)
+	}
 
 	msg := SlackMsg{
 		Channel:   cfg.Channel,
