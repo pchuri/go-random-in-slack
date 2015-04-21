@@ -25,7 +25,7 @@ func InsertRandomToDB(db *sql.DB, username string, randValue int) error {
 		return err
 	}
 
-	_, err = stmt.Exec(username, randValue)
+	stmt.Exec(username, randValue)
 
 	return err
 }
