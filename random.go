@@ -31,7 +31,10 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Post failed: %v", err)
 	}
 
-	InsertRandomToDB(db, username, randValue)
+	err = InsertRandomToDB(db, username, randValue)
+	if err != nil {
+		fmt.Fprintf(w, "Insert Failed : %v", err)
+	}
 }
 
 func main() {
