@@ -66,7 +66,7 @@ func main() {
 		log.Fatalf("Could not read config: %v", err)
 	}
 
-	db, err := ConnectDB()
+	db, err = ConnectDB()
 	defer db.Close()
 	if err != nil {
 		log.Fatalf("Connect Database Failed : %v", err)
@@ -75,7 +75,7 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	http.HandleFunc("/random", randomHandler)
-	//http.HandleFunc("/avgRandom", avgRandomHandler)
+	http.HandleFunc("/avgRandom", avgRandomHandler)
 
 	err = http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
