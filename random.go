@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/lib/pq"
 )
 
 var cfg *Config
@@ -36,11 +34,6 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Connect Database Failed : %v", err)
 	}
 
-	url := os.Getenv("DATABASE_URL")
-	connection, _ := pq.ParseURL(url)
-	connection += " sslmode=require"
-
-	fmt.Fprintln(w, connection)
 	fmt.Fprintf(w, "INSERT INTO random_logs(username, random) VALUES (%v, %v)\n", username, randValue)
 
 	err = InsertRandomToDB(db, username, randValue)
