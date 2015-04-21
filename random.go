@@ -34,8 +34,6 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Connect Database Failed : %v", err)
 	}
 
-	fmt.Fprintf(w, "INSERT INTO random_logs(username, random) VALUES (%v, %v)\n", username, randValue)
-
 	err = InsertRandomToDB(db, username, randValue)
 	if err != nil {
 		fmt.Fprintf(w, "Insert Failed : %v", err)
