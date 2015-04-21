@@ -30,7 +30,7 @@ func InsertRandomToDB(db *sql.DB, username string, randValue int) error {
 	return err
 }
 
-func SelectAvgRandomFromDB(db *sql.DB, username string) (float32, error) {
+func SelectAvgRandomFromDB(db *sql.DB, username string) (int, error) {
 	stmt, err := db.Prepare("SELECT avg(randvalue) from random_logs where username = $1")
 	if err != nil {
 		return 0.0, err
@@ -38,7 +38,7 @@ func SelectAvgRandomFromDB(db *sql.DB, username string) (float32, error) {
 
 	row := stmt.QueryRow(username)
 
-	var avgRand float32
+	var avgRand int
 	err = row.Scan(&avgRand)
 
 	return avgRand, err
