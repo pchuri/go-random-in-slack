@@ -38,7 +38,7 @@ func randomHandler(w http.ResponseWriter, r *http.Request) {
 
 	url := os.Getenv("DATABASE_URL")
 	connection, _ := pq.ParseURL(url)
-	connection += " sslmode=require"
+	//connection += " sslmode=require"
 
 	fmt.Fprintln(w, connection)
 	fmt.Fprintf(w, "INSERT INTO random_logs(username, random) VALUES (%v, %v)\n", username, randValue)
